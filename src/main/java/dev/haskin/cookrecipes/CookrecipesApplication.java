@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import dev.haskin.cookrecipes.model.User;
+import dev.haskin.cookrecipes.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,9 +18,11 @@ public class CookrecipesApplication {
 	}
 
 	@Bean
-	public CommandLineRunner startup() {
+	public CommandLineRunner startup(UserService userService) {
 		return args -> {
 			log.info("---------- STARTUP ----------");
+			User user = User.builder().username("username").password("password").build();
+			userService.createUser(user);
 		};
 	}
 }

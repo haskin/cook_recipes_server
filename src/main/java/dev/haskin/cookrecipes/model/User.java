@@ -10,13 +10,25 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.UniqueElements;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Table(name = "`user`", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 @Entity
+@Data
+@Builder
+// @AllArgsConstructor
+// @NoArgsConstructor
+// @Getter
+// @Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @UniqueElements
     @NotBlank
     private String username;
     @NotBlank
