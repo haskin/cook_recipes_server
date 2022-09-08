@@ -3,11 +3,12 @@ package dev.haskin.cookrecipes.util;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class StringUtil {
-    public String toProperCase(String words) {
+
+    private StringUtil() {
+    }
+
+    public static String toProperCase(String words) {
         if (words.isBlank())
             return "";
         String[] wordsToFormat = words.trim().split("\\s+");
