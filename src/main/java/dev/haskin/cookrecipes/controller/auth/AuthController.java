@@ -29,7 +29,7 @@ import dev.haskin.cookrecipes.security.UserPrincipal;
 import dev.haskin.cookrecipes.service.auth.AuthService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/user")
 @CrossOrigin
 public class AuthController {
 
@@ -53,7 +53,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<ApiResponse> signup(@Valid @RequestBody SignUpRequest signUpRequest) {
         UserDTO result = this.authService.signUp(signUpRequest);
 
