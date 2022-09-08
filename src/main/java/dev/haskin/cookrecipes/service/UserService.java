@@ -1,5 +1,6 @@
 package dev.haskin.cookrecipes.service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,11 @@ public class UserService {
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    public void saveUsers(List<User> users) {
+        users.forEach(user -> user.setPassword(passwordEncoder.encode(user.getPassword())));
+        userRepository.saveAll(users);
     }
 
     public Set<User> readUsers() {

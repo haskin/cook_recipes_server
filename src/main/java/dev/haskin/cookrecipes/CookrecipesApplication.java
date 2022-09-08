@@ -1,5 +1,9 @@
 package dev.haskin.cookrecipes;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.boot.CommandLineRunner;
@@ -43,6 +47,14 @@ public class CookrecipesApplication {
 			chickenParm.setOwner(user);
 			user.getRecipesOwned().add(chickenParm);
 			userService.saveUser(user);
+			initUsers(userService);
 		};
+	}
+
+	public void initUsers(UserService userService) {
+		List<User> users = List.of(
+				new User("adrian", "adrian"),
+				new User("userone", "userone"));
+		userService.saveUsers(users);
 	}
 }

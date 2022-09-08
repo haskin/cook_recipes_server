@@ -43,4 +43,9 @@ public class User {
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Column(name = "created_recipes")
     Set<Recipe> recipesOwned = new HashSet<>();
+
+    public User(@NotBlank String username, @NotBlank String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
