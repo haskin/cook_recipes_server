@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import dev.haskin.cookrecipes.model.User;
 import dev.haskin.cookrecipes.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
@@ -20,6 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
+        log.info("Loading by username");
         // Let people login with either username
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username : " + username));
