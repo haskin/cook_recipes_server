@@ -43,6 +43,7 @@ public class Recipe {
 
     @NotBlank
     private String instructions;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDate createdAt = LocalDate.now();
@@ -57,6 +58,7 @@ public class Recipe {
     public Recipe(@NotBlank String name, @NotBlank String instructions) {
         this.name = name;
         this.instructions = instructions;
+        this.ingredients = new HashSet<>();
     }
 
     public void setName(String name) {
