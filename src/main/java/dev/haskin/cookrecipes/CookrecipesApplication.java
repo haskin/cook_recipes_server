@@ -27,12 +27,14 @@ public class CookrecipesApplication {
 		return args -> {
 			log.info("---------- STARTUP ----------");
 			User user = User.builder().username("username").password("password").build();
-			user = userService.createUser(user);
+			user = userService.saveUser(user);
 			// Recipe chickenParm = Recipe.builder().name("Chicken Parm").instructions("cook
 			// chicken").build();
 			Recipe chickenParm = new Recipe("chicken parm", "cook chicken");
 			chickenParm = recipeService.saveRecipe(chickenParm);
-			user.getCreatedRecipes().add(chickenParm);
+			chickenParm.setOwner(user);
+			user.getRecipesOwned().add(chickenParm);
+			// userService.saveUser(user);
 		};
 	}
 }
