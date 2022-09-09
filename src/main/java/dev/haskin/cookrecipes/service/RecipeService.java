@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import dev.haskin.cookrecipes.dto.RecipeResponse;
+import dev.haskin.cookrecipes.model.Ingredient;
 import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.repository.RecipeRepository;
 
@@ -18,6 +19,8 @@ import dev.haskin.cookrecipes.repository.RecipeRepository;
 public class RecipeService {
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private IngredientService ingredientService;
     @Autowired
     private RecipeRepository recipeRepository;
 
@@ -38,5 +41,12 @@ public class RecipeService {
     public Recipe findRecipeById(Long id) {
         return recipeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "recipe id was not found"));
+    }
+
+    public void updateRecipeIngredient(Long recipeId, Long ingredientId) {
+        Recipe recipe = findRecipeById(recipeId);
+        Ingredient ingredient = ingredientService.findIngredientById(ingredientId);
+        recipe.getIngredients().add(ingredient);
+        recipeRepository.save(recipe);
     }
 }

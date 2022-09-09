@@ -49,7 +49,9 @@ public class CookrecipesApplication {
 			// userService.saveUser(user);
 			initUsers(userService);
 			initRecipe(recipeService);
+			initIngredients(ingredientService);
 			addRecipesToUser(userService, 1L, List.of(1L));
+			addIngredientsToRecipe(recipeService, 1L, List.of(1L, 2L));
 		};
 	}
 
@@ -66,10 +68,22 @@ public class CookrecipesApplication {
 		recipeService.saveRecipes(recipes);
 	}
 
+	public void initIngredients(IngredientService ingredientService) {
+		List<Ingredient> ingredients = List.of(new Ingredient("cereal"), new Ingredient("milk"));
+		ingredientService.saveIngredients(ingredients);
+
+	}
+
 	public void addRecipesToUser(UserService userService, Long userId,
 			List<Long> recipeIds) {
 		for (Long recipeId : recipeIds) {
 			userService.addRecipeToUser(userId, recipeId);
+		}
+	}
+
+	public void addIngredientsToRecipe(RecipeService recipeService, Long recipeId, List<Long> ingredientIds) {
+		for (Long ingredientId : ingredientIds) {
+			recipeService.updateRecipeIngredient(recipeId, ingredientId);
 		}
 	}
 }

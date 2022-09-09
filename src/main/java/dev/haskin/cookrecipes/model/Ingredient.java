@@ -30,6 +30,10 @@ public class Ingredient {
     @NotBlank
     private String name;
 
+    public Ingredient(@NotBlank String name) {
+        this.name = name;
+    }
+
     public void setName(String name) {
         this.name = StringUtil.toProperCase(name);
     }
