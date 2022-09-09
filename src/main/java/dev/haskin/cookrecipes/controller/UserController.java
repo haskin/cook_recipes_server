@@ -2,12 +2,14 @@ package dev.haskin.cookrecipes.controller;
 
 import java.util.Set;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.haskin.cookrecipes.model.User;
+import dev.haskin.cookrecipes.security.UserPrincipal;
 import dev.haskin.cookrecipes.service.UserService;
 
 @RestController
@@ -17,8 +19,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/user")
+    public String findUser(Authentication authentication) {
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        return "hello world";
+    }
+
     @GetMapping("/users")
-    Set<User> findUsers() {
+    public Set<User> findUsers() {
         return userService.findUsers();
     }
 }

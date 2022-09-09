@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/h2-console/**")
                 .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/recipes")
+                .antMatchers(HttpMethod.GET, "/api/recipes", "/api/recipe/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
