@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    Set<User> readUsers() {
-        return userService.readUsers();
+    Set<User> findUsers() {
+        return userService.findUsers();
     }
 }

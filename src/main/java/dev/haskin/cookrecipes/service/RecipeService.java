@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import dev.haskin.cookrecipes.dto.RecipeResponse;
 import dev.haskin.cookrecipes.model.Recipe;
@@ -29,4 +31,12 @@ public class RecipeService {
         return recipeRepository.save(recipe);
     }
 
+    public void saveRecipes(List<Recipe> recipes) {
+        recipeRepository.saveAll(recipes);
+    }
+
+    public Recipe findRecipeById(Long id) {
+        return recipeRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "recipe id was not found"));
+    }
 }

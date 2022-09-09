@@ -33,21 +33,23 @@ public class CookrecipesApplication {
 			IngredientService ingredientService) {
 		return args -> {
 			log.info("---------- STARTUP ----------");
-			User user = User.builder().username("username").password("password").build();
-			user = userService.saveUser(user);
+			// User user = User.builder().username("username").password("password").build();
+			// user = userService.saveUser(user);
 			// Recipe chickenParm = Recipe.builder().name("Chicken Parm").instructions("cook
 			// chicken").build();
 
-			Ingredient chicken = Ingredient.builder().name("chicken").build();
-			chicken = ingredientService.saveIngredient(chicken);
+			// Ingredient chicken = Ingredient.builder().name("chicken").build();
+			// chicken = ingredientService.saveIngredient(chicken);
 
-			Recipe chickenParm = new Recipe("chicken parm", "cook chicken");
-			chickenParm = recipeService.saveRecipe(chickenParm);
-			chickenParm.getIngredients().add(chicken);
-			chickenParm.setOwner(user);
-			user.getRecipesOwned().add(chickenParm);
-			userService.saveUser(user);
+			// Recipe chickenParm = new Recipe("chicken parm", "cook chicken");
+			// chickenParm = recipeService.saveRecipe(chickenParm);
+			// chickenParm.getIngredients().add(chicken);
+			// chickenParm.setOwner(user);
+			// user.getRecipesOwned().add(chickenParm);
+			// userService.saveUser(user);
 			initUsers(userService);
+			initRecipe(recipeService);
+			addRecipesToUser(userService, 1L, List.of(1L));
 		};
 	}
 
@@ -56,5 +58,18 @@ public class CookrecipesApplication {
 				new User("adrian", "adrian"),
 				new User("userone", "userone"));
 		userService.saveUsers(users);
+	}
+
+	public void initRecipe(RecipeService recipeService) {
+		List<Recipe> recipes = List.of(
+				new Recipe("Cereal", "Add cereal | Add milk"));
+		recipeService.saveRecipes(recipes);
+	}
+
+	public void addRecipesToUser(UserService userService, Long userId,
+			List<Long> recipeIds) {
+		for (Long recipeId : recipeIds) {
+			userService.addRecipeToUser(userId, recipeId);
+		}
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.model.User;
 import dev.haskin.cookrecipes.repository.UserRepository;
 
@@ -23,6 +24,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RecipeService recipeService;
+
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -33,12 +37,21 @@ public class UserService {
         userRepository.saveAll(users);
     }
 
-    public Set<User> readUsers() {
+    public Set<User> findUsers() {
         return userRepository.findAll().stream().collect(Collectors.toSet());
     }
 
-    public User readUserById(Long id) {
+    public User findUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found"));
+    }
+
+    @Transactional
+    public void addRecipeToUser(Long userId, Long recipeId) {
+        User user = findUserById(userId);
+        Recipe recipe = recipeService.findRecipeById(recipeId);
+        recipe.setOwner(user);
+        user.getRecipesOwned().add(recipe);
+        userRepository.save(user);
     }
 }
