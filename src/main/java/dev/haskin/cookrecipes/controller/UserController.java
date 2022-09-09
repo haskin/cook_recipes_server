@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.haskin.cookrecipes.dto.RecipeResponse;
+import dev.haskin.cookrecipes.dto.UserResponse;
 import dev.haskin.cookrecipes.model.User;
 import dev.haskin.cookrecipes.security.UserPrincipal;
 import dev.haskin.cookrecipes.service.UserService;
@@ -25,9 +26,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user")
-    public String findUser(Authentication authentication) {
+    public UserResponse findUser(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        return "hello world";
+        User user = userService.findUserById(userPrincipal.getId());
+        return modelMapper.map(user, UserResponse.class);
     }
 
     @GetMapping("/user/recipes")

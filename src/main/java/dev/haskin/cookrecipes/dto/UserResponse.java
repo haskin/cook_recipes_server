@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserReponse {
+public class UserResponse {
     @NotBlank
     private String username;
 }
