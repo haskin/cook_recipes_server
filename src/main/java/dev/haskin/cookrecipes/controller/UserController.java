@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,5 +45,11 @@ public class UserController {
     @GetMapping("/users")
     public Set<User> findUsers() {
         return userService.findUsers();
+    }
+
+    @PutMapping("/user/recipe/{recipeId}")
+    public User saveRecipe(@PathVariable Long recipeId, Authentication authentication) {
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        return userService.addCreatedRecipeToUser(userPrincipal.getId(), recipeId);
     }
 }

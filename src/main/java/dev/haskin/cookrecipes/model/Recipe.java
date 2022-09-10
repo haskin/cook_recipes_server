@@ -58,9 +58,10 @@ public class Recipe {
     @OneToMany(fetch = FetchType.EAGER)
     Set<Ingredient> ingredients = new HashSet<>();
 
-    public Recipe(@NotBlank String name, @NotBlank String instructions) {
+    public Recipe(@NotBlank String name, @NotBlank String instructions, @NotBlank String image) {
         this.name = name;
         this.instructions = instructions;
+        this.image = image;
         this.ingredients = new HashSet<>();
     }
 

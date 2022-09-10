@@ -47,11 +47,21 @@ public class UserService {
     }
 
     @Transactional
-    public void addRecipeToUser(Long userId, Long recipeId) {
+    public User saveCreatedRecipe(Long userId, Long recipeId) {
+        User user = findUserById(userId);
+        Recipe recipe = recipeService.findRecipeById(recipeId);
+        user.getRecipesOwned().add(recipe);
+        recipe.setOwner(user);
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    public User addCreatedRecipeToUser(Long userId, Long recipeId) {
         User user = findUserById(userId);
         Recipe recipe = recipeService.findRecipeById(recipeId);
         recipe.setOwner(user);
         user.getRecipesOwned().add(recipe);
-        userRepository.save(user);
+        return user;
+        // return userRepository.save(user);
     }
 }
