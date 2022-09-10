@@ -44,6 +44,9 @@ public class Recipe {
     @NotBlank
     private String instructions;
 
+    @NotBlank
+    private String image;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDate createdAt = LocalDate.now();

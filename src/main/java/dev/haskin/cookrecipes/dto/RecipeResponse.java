@@ -19,4 +19,7 @@ public class RecipeResponse {
 
     @NotBlank
     private String instructions;
+
+    @NotBlank
+    private String image;
 }

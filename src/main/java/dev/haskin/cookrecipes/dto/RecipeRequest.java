@@ -15,4 +15,7 @@ public class RecipeRequest {
 
     @NotBlank
     private String instructions;
+
+    @NotBlank
+    private String image;
 }
