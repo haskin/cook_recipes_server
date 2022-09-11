@@ -27,5 +27,5 @@ public class RecipeRequest {
     private String image;
 
     @JsonInclude(Include.NON_NULL)
-    private Set<Ingredient> ingredients = new HashSet<>();
+    private Set<IngredientRequest> ingredients = new HashSet<>();
 }

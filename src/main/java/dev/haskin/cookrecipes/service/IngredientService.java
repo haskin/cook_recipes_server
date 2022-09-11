@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.haskin.cookrecipes.model.Ingredient;
 import dev.haskin.cookrecipes.repository.IngredientRepository;
+import dev.haskin.cookrecipes.util.StringUtil;
 
 @Service
 public class IngredientService {
@@ -31,6 +32,7 @@ public class IngredientService {
     }
 
     public Optional<Ingredient> getIngredientByName(String name) {
+        // name = StringUtil.toProperCase(name);
         return ingredientRepository.getIngredientByName(name);
     }
 }

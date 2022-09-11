@@ -1,18 +1,18 @@
 package dev.haskin.cookrecipes.model;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -55,7 +55,8 @@ public class Recipe {
     private User owner;
 
     @Builder.Default
-    @OneToMany(fetch = FetchType.EAGER)
+    // @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     Set<Ingredient> ingredients = new HashSet<>();
 
     public Recipe(@NotBlank String name, @NotBlank String instructions, @NotBlank String image) {
