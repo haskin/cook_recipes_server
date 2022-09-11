@@ -1,7 +1,13 @@
 package dev.haskin.cookrecipes.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +28,7 @@ public class RecipeResponse {
 
     @NotBlank
     private String image;
+
+    @JsonInclude(Include.NON_NULL)
+    private Set<IngredientRequest> ingredients = new HashSet<>();
 }
