@@ -31,7 +31,9 @@ public class UserController {
     public UserResponse findUser(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         User user = userService.findUserById(userPrincipal.getId());
-        return modelMapper.map(user, UserResponse.class);
+        UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+        userResponse.setRecipes(null);
+        return userResponse;
     }
 
     @GetMapping("/user/recipes")
@@ -48,8 +50,8 @@ public class UserController {
     }
 
     @PutMapping("/user/recipe/{recipeId}")
-    public User saveRecipe(@PathVariable Long recipeId, Authentication authentication) {
+    public UserResponse saveRecipe(@PathVariable Long recipeId, Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        return userService.addCreatedRecipeToUser(userPrincipal.getId(), recipeId);
+        return modelMapper.map(userService.addCreatedRecipeToUser(userPrincipal.getId(), recipeId), UserResponse.class);
     }
 }
