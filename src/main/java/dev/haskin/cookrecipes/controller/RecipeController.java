@@ -1,10 +1,7 @@
 package dev.haskin.cookrecipes.controller;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,7 +22,6 @@ import dev.haskin.cookrecipes.dto.IngredientResponse;
 import dev.haskin.cookrecipes.dto.RecipeRequest;
 import dev.haskin.cookrecipes.dto.RecipeResponse;
 import dev.haskin.cookrecipes.model.Recipe;
-import dev.haskin.cookrecipes.model.User;
 import dev.haskin.cookrecipes.security.UserPrincipal;
 import dev.haskin.cookrecipes.service.RecipeService;
 import dev.haskin.cookrecipes.service.UserService;
@@ -42,9 +39,16 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping("/recipes")
-    public Set<RecipeResponse> getRecipes() {
+    public Set<RecipeResponse> getRecipes(@RequestParam(required = false) String name) {
+        if (name != null)
+            return recipeService.getRecipesByName(name);
         return recipeService.getRecipes();
     }
+
+    // @GetMapping("/recipes")
+    // public Set<RecipeResponse> getRecipesByName(@RequestParam String name) {
+    // return recipeService.getRecipesByName(name);
+    // }
 
     @GetMapping("/recipe/{recipeId}")
     public RecipeResponse findRecipeById(@PathVariable Long recipeId) {

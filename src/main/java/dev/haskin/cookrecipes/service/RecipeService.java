@@ -36,6 +36,12 @@ public class RecipeService {
                 .collect(Collectors.toSet());
     }
 
+    public Set<RecipeResponse> getRecipesByName(String name) {
+        Set<Recipe> recipes = recipeRepository.findByNameContainingIgnoreCase(name);
+        return recipes.stream().map(recipe -> modelMapper.map(recipe, RecipeResponse.class))
+                .collect(Collectors.toSet());
+    }
+
     public Recipe saveRecipe(Recipe recipe) {
         return recipeRepository.save(recipe);
     }
