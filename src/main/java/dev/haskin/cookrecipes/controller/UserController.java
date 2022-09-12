@@ -60,6 +60,13 @@ public class UserController {
         return modelMapper.map(userService.addCreatedRecipeToUser(userPrincipal.getId(), recipeId), UserResponse.class);
     }
 
+    @DeleteMapping("user/recipe/{recipeId}")
+    public UserResponse deleteRecipe(@PathVariable Long recipeId, Authentication authentication) {
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        return modelMapper.map(userService.deleteRecipe(userPrincipal.getId(), recipeId),
+                UserResponse.class);
+    }
+
     @DeleteMapping("user/recipe")
     public UserResponse deleteRecipe(@RequestBody RecipeRequest recipeRequest, Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
