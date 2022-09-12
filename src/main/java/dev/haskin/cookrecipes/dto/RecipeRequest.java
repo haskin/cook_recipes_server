@@ -17,6 +17,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecipeRequest {
+    @JsonInclude(Include.NON_NULL)
+    private Long id;
+
     @NotBlank
     private String name;
 

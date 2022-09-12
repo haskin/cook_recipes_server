@@ -85,4 +85,8 @@ public class RecipeService {
         recipe.setIngredients(ingredients);
         return recipe;
     }
+
+    public void deleteRecipe(Recipe recipe) {
+        recipeRepository.delete(recipe);
+    }
 }

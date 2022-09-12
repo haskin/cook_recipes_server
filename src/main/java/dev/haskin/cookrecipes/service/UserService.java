@@ -64,4 +64,15 @@ public class UserService {
         return user;
         // return userRepository.save(user);
     }
+
+    @Transactional
+    public User deleteRecipe(Long userId, Long recipeId) {
+        User user = findUserById(userId);
+        Recipe recipe = recipeService.findRecipeById(recipeId);
+        if (!user.getId().equals(recipe.getOwner().getId()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User must match Recipe owner for deletion ");
+        user.getRecipesOwned().remove(recipe);
+        recipeService.deleteRecipe(recipe);
+        return user;
+    }
 }

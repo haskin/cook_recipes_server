@@ -5,13 +5,18 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import dev.haskin.cookrecipes.dto.RecipeRequest;
 import dev.haskin.cookrecipes.dto.RecipeResponse;
 import dev.haskin.cookrecipes.dto.UserResponse;
 import dev.haskin.cookrecipes.model.User;
@@ -53,5 +58,15 @@ public class UserController {
     public UserResponse saveRecipe(@PathVariable Long recipeId, Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         return modelMapper.map(userService.addCreatedRecipeToUser(userPrincipal.getId(), recipeId), UserResponse.class);
+    }
+
+    @DeleteMapping("user/recipe")
+    public UserResponse deleteRecipe(@RequestBody RecipeRequest recipeRequest, Authentication authentication) {
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        if (recipeRequest.getId() == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Recipe data must contain id for delete operation");
+        return modelMapper.map(userService.deleteRecipe(userPrincipal.getId(), recipeRequest.getId()),
+                UserResponse.class);
     }
 }
