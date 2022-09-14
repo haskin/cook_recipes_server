@@ -48,10 +48,10 @@ public class CookrecipesApplication {
 			// user.getRecipesOwned().add(chickenParm);
 			// userService.saveUser(user);
 			initUsers(userService);
-			initRecipe(recipeService);
-			initIngredients(ingredientService);
-			addRecipesToUser(userService, 1L, List.of(1L));
-			addIngredientsToRecipe(recipeService, 1L, List.of(1L, 2L));
+			// initRecipe(recipeService);
+			// initIngredients(ingredientService);
+			// addRecipesToUser(userService, 1L, List.of(1L));
+			// addIngredientsToRecipe(recipeService, 1L, List.of(1L, 2L));
 		};
 	}
 
@@ -63,10 +63,10 @@ public class CookrecipesApplication {
 	}
 
 	public void initRecipe(RecipeService recipeService) {
-		List<Recipe> recipes = List.of(
-				new Recipe("Cereal", "Add cereal | Add milk",
-						"https://images.unsplash.com/photo-1521483451569-e33803c0330c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1085&q=80"));
-		recipeService.saveRecipes(recipes);
+		// List<Recipe> recipes = List.of(
+		// new Recipe("Cereal", "Add cereal | Add milk",
+		// "https://images.unsplash.com/photo-1521483451569-e33803c0330c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1085&q=80"));
+		// recipeService.saveRecipes(recipes);
 	}
 
 	public void initIngredients(IngredientService ingredientService) {

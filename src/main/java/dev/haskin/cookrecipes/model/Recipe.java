@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -41,8 +42,8 @@ public class Recipe {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String instructions;
+    // @NotBlank
+    // private String instructions;
 
     @NotBlank
     private String image;
@@ -57,13 +58,24 @@ public class Recipe {
     @Builder.Default
     // @OneToMany(fetch = FetchType.EAGER)
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
-    Set<Ingredient> ingredients = new HashSet<>();
+    private Set<Ingredient> ingredients = new HashSet<>();
 
-    public Recipe(@NotBlank String name, @NotBlank String instructions, @NotBlank String image) {
+    @Builder.Default
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Instruction> instructions = new HashSet<>();
+
+    // public Recipe(@NotBlank String name, @NotBlank String instructions, @NotBlank
+    // String image) {
+    // this.name = name;
+    // this.instructions = instructions;
+    // this.image = image;
+    // this.ingredients = new HashSet<>();
+    // }
+
+    public Recipe(@NotBlank String name, @NotBlank String image, Set<Instruction> instructions) {
         this.name = name;
-        this.instructions = instructions;
         this.image = image;
-        this.ingredients = new HashSet<>();
+        this.instructions = instructions;
     }
 
     public void setName(String name) {
