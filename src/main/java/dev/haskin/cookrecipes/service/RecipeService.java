@@ -17,6 +17,8 @@ import dev.haskin.cookrecipes.dto.IngredientRequest;
 import dev.haskin.cookrecipes.dto.RecipeRequest;
 import dev.haskin.cookrecipes.dto.RecipeResponse;
 import dev.haskin.cookrecipes.model.Ingredient;
+import dev.haskin.cookrecipes.model.Instruction;
+import dev.haskin.cookrecipes.model.InstructionService;
 import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.repository.RecipeRepository;
 import dev.haskin.cookrecipes.util.StringUtil;
@@ -25,6 +27,8 @@ import dev.haskin.cookrecipes.util.StringUtil;
 public class RecipeService {
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private InstructionService instructionService;
     @Autowired
     private IngredientService ingredientService;
     @Autowired
@@ -59,7 +63,12 @@ public class RecipeService {
     public Recipe updateRecipe(Recipe recipe, RecipeRequest recipeRequest) {
         recipe.setName(recipeRequest.getName());
         recipe.setImage(recipeRequest.getImage());
-        recipe.setInstructions(recipeRequest.getInstructions());
+        Set<Instruction> instructions = recipeRequest.getInstructions().stream()
+                .map(instruction -> modelMapper.map(instruction, Instruction.class))
+                .map(instruction -> instructionService.saveInstruction(instruction))
+                .collect(Collectors.toSet());
+        recipe.setInstructions(instructions);
+        // recipe.setInstructions(recipeRequest.getInstructions());
         return recipe;
     }
 

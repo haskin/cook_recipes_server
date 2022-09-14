@@ -23,8 +23,9 @@ public class RecipeResponse {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String instructions;
+    private Set<InstructionRequest> instructions = new HashSet<>();
+    // @NotBlank
+    // private String instructions;
 
     @NotBlank
     private String image;

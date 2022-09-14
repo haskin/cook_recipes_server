@@ -33,4 +33,9 @@ public class Instruction {
 
     @ManyToOne
     private Recipe recipe;
+
+    public Instruction(@NotNull Integer step, @NotBlank String description) {
+        this.step = step;
+        this.description = description;
+    }
 }
