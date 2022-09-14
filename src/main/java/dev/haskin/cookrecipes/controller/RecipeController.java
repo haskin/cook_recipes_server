@@ -77,7 +77,7 @@ public class RecipeController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User does not own the recipe");
         recipe = recipeService.updateRecipe(recipe, recipeRequest);
         // If the recipe request have ingredients
-        if (!recipeRequest.getIngredients().isEmpty()) {
+        if (recipeRequest.getIngredients() != null) {
             return saveIngredientsToRecipe(recipeId, recipeRequest.getIngredients().toArray(IngredientRequest[]::new),
                     authentication);
         }
