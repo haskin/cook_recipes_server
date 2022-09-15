@@ -78,6 +78,11 @@ public class Recipe {
         this.instructions = instructions;
     }
 
+    public Recipe(@NotBlank String name, @NotBlank String image) {
+        this.name = name;
+        this.image = image;
+    }
+
     public void setName(String name) {
         this.name = StringUtil.toProperCase(name);
     }
