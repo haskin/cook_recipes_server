@@ -3,6 +3,8 @@ package dev.haskin.cookrecipes.controller;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,13 +69,13 @@ public class UserController {
                 UserResponse.class);
     }
 
-    @DeleteMapping("user/recipe")
-    public UserResponse deleteRecipe(@RequestBody RecipeRequest recipeRequest, Authentication authentication) {
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        if (recipeRequest.getId() == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Recipe data must contain id for delete operation");
-        return modelMapper.map(userService.deleteRecipe(userPrincipal.getId(), recipeRequest.getId()),
-                UserResponse.class);
-    }
+    // @DeleteMapping("user/recipe")
+    // public UserResponse deleteRecipe(@Valid @RequestBody RecipeRequest recipeRequest, Authentication authentication) {
+    //     UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    //     if (recipeRequest.getId() == null)
+    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+    //                 "Recipe data must contain id for delete operation");
+    //     return modelMapper.map(userService.deleteRecipe(userPrincipal.getId(), recipeRequest.getId()),
+    //             UserResponse.class);
+    // }
 }

@@ -3,6 +3,8 @@ package dev.haskin.cookrecipes.controller;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,6 @@ import dev.haskin.cookrecipes.dto.IngredientRequest;
 import dev.haskin.cookrecipes.dto.IngredientResponse;
 import dev.haskin.cookrecipes.dto.RecipeRequest;
 import dev.haskin.cookrecipes.dto.RecipeResponse;
-import dev.haskin.cookrecipes.model.Instruction;
 import dev.haskin.cookrecipes.model.InstructionService;
 import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.security.UserPrincipal;
@@ -68,14 +69,14 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe")
-    public RecipeResponse saveRecipe(@RequestBody RecipeRequest recipeRequest, Authentication authentication) {
+    public RecipeResponse saveRecipe(@Valid @RequestBody RecipeRequest recipeRequest, Authentication authentication) {
         Recipe recipe = modelMapper.map(recipeRequest, Recipe.class);
         instructionService.updateInstructions(recipe);
         return modelMapper.map(recipeService.saveRecipe(recipe), RecipeResponse.class);
     }
 
     @PutMapping("/recipe/{recipeId}")
-    public RecipeResponse updateRecipe(@PathVariable Long recipeId, @RequestBody RecipeRequest recipeRequest,
+    public RecipeResponse updateRecipe(@PathVariable Long recipeId, @Valid @RequestBody RecipeRequest recipeRequest,
             Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Recipe recipe = recipeService.findRecipeById(recipeId);
@@ -94,7 +95,7 @@ public class RecipeController {
 
     @PutMapping("/recipe/{recipeId}/ingredients")
     public RecipeResponse saveIngredientsToRecipe(@PathVariable Long recipeId,
-            @RequestBody IngredientRequest[] ingredients,
+            @Valid @RequestBody IngredientRequest[] ingredients,
             Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Recipe recipe = recipeService.findRecipeById(recipeId);

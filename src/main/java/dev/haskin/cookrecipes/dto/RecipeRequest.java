@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,6 +29,7 @@ public class RecipeRequest {
     // @NotBlank
     // private String instructions;
 
+    @NotEmpty
     @NotBlank
     private String image;
 
