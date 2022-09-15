@@ -21,6 +21,8 @@ import dev.haskin.cookrecipes.dto.IngredientRequest;
 import dev.haskin.cookrecipes.dto.IngredientResponse;
 import dev.haskin.cookrecipes.dto.RecipeRequest;
 import dev.haskin.cookrecipes.dto.RecipeResponse;
+import dev.haskin.cookrecipes.model.Instruction;
+import dev.haskin.cookrecipes.model.InstructionService;
 import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.security.UserPrincipal;
 import dev.haskin.cookrecipes.service.RecipeService;
@@ -31,6 +33,9 @@ import dev.haskin.cookrecipes.service.UserService;
 public class RecipeController {
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private InstructionService instructionService;
 
     @Autowired
     private UserService userService;
@@ -65,6 +70,7 @@ public class RecipeController {
     @PostMapping("/recipe")
     public RecipeResponse saveRecipe(@RequestBody RecipeRequest recipeRequest, Authentication authentication) {
         Recipe recipe = modelMapper.map(recipeRequest, Recipe.class);
+        instructionService.updateInstructions(recipe);
         return modelMapper.map(recipeService.saveRecipe(recipe), RecipeResponse.class);
     }
 
@@ -75,8 +81,10 @@ public class RecipeController {
         Recipe recipe = recipeService.findRecipeById(recipeId);
         if (!userPrincipal.getId().equals(recipe.getOwner().getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User does not own the recipe");
+        instructionService.deleteInstructions(recipe.getInstructions());
         recipe = recipeService.updateRecipe(recipe, recipeRequest);
         // If the recipe request have ingredients
+        instructionService.updateInstructions(recipe);
         if (recipeRequest.getIngredients() != null) {
             return saveIngredientsToRecipe(recipeId, recipeRequest.getIngredients().toArray(IngredientRequest[]::new),
                     authentication);

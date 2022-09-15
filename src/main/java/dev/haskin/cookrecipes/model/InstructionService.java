@@ -2,6 +2,8 @@ package dev.haskin.cookrecipes.model;
 
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,17 @@ public class InstructionService {
     public Set<Instruction> getInstructionByRecipeId(Long recipeId) {
         return null;
         // return instructionRepository.find
+    }
+
+    @Transactional
+    public void updateInstructions(Recipe recipe) {
+        for (Instruction instruction : recipe.getInstructions()) {
+            instruction.setRecipe(recipe);
+        }
+    }
+
+    @Transactional
+    public void deleteInstructions(Set<Instruction> instructions) {
+        instructionRepository.deleteAll(instructions);
     }
 }

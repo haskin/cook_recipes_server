@@ -63,6 +63,7 @@ public class RecipeService {
     public Recipe updateRecipe(Recipe recipe, RecipeRequest recipeRequest) {
         recipe.setName(recipeRequest.getName());
         recipe.setImage(recipeRequest.getImage());
+        instructionService.deleteInstructions(recipe.getInstructions());
         Set<Instruction> instructions = recipeRequest.getInstructions().stream()
                 .map(instruction -> modelMapper.map(instruction, Instruction.class))
                 .map(instruction -> instructionService.saveInstruction(instruction))
