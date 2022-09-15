@@ -21,10 +21,9 @@ public class InstructionService {
         return instructionRepository.save(instruction);
     }
 
-    public Set<Instruction> getInstructionByRecipeId(Long recipeId) {
-        return null;
-        // return instructionRepository.find
-    }
+    // public Set<Instruction> getInstructionByRecipeId(Long recipeId) {
+    //     return null;
+    // }
 
     @Transactional
     public void updateInstructions(Recipe recipe) {
