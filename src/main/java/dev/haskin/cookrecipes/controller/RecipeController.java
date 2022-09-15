@@ -23,9 +23,9 @@ import dev.haskin.cookrecipes.dto.IngredientRequest;
 import dev.haskin.cookrecipes.dto.IngredientResponse;
 import dev.haskin.cookrecipes.dto.RecipeRequest;
 import dev.haskin.cookrecipes.dto.RecipeResponse;
-import dev.haskin.cookrecipes.model.InstructionService;
 import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.security.UserPrincipal;
+import dev.haskin.cookrecipes.service.InstructionService;
 import dev.haskin.cookrecipes.service.RecipeService;
 import dev.haskin.cookrecipes.service.UserService;
 

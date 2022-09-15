@@ -1,4 +1,4 @@
-package dev.haskin.cookrecipes.model;
+package dev.haskin.cookrecipes.service;
 
 import java.util.Set;
 
@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.haskin.cookrecipes.model.Instruction;
+import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.repository.InstructionRepository;
 
 @Service

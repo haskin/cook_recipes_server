@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Bean;
 
 import dev.haskin.cookrecipes.model.Ingredient;
 import dev.haskin.cookrecipes.model.Instruction;
-import dev.haskin.cookrecipes.model.InstructionService;
 import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.model.User;
 import dev.haskin.cookrecipes.service.IngredientService;
+import dev.haskin.cookrecipes.service.InstructionService;
 import dev.haskin.cookrecipes.service.RecipeService;
 import dev.haskin.cookrecipes.service.UserService;
 import lombok.extern.slf4j.Slf4j;

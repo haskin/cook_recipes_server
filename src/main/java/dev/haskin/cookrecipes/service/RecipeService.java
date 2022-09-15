@@ -18,7 +18,6 @@ import dev.haskin.cookrecipes.dto.RecipeRequest;
 import dev.haskin.cookrecipes.dto.RecipeResponse;
 import dev.haskin.cookrecipes.model.Ingredient;
 import dev.haskin.cookrecipes.model.Instruction;
-import dev.haskin.cookrecipes.model.InstructionService;
 import dev.haskin.cookrecipes.model.Recipe;
 import dev.haskin.cookrecipes.repository.RecipeRepository;
 import dev.haskin.cookrecipes.util.StringUtil;
