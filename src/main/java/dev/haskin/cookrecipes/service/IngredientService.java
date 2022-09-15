@@ -33,6 +33,6 @@ public class IngredientService {
 
     public Optional<Ingredient> getIngredientByName(String name) {
         // name = StringUtil.toProperCase(name);
-        return ingredientRepository.getIngredientByName(name);
+        return ingredientRepository.getFirstIngredientByName(name);
     }
 }

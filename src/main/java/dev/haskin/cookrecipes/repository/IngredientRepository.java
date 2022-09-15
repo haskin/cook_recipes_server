@@ -10,6 +10,6 @@ import dev.haskin.cookrecipes.model.Ingredient;
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
-    public Optional<Ingredient> getIngredientByName(String name);
+    public Optional<Ingredient> getFirstIngredientByName(String name);
 
 }

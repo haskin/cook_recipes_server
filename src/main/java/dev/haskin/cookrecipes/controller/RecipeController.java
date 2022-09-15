@@ -86,8 +86,8 @@ public class RecipeController {
         // If the recipe request have ingredients
         instructionService.updateInstructions(recipe);
         if (recipeRequest.getIngredients() != null) {
-            return saveIngredientsToRecipe(recipeId, recipeRequest.getIngredients().toArray(IngredientRequest[]::new),
-                    authentication);
+            recipeService.updateRecipeIngredients(recipe,
+                    recipeRequest.getIngredients().toArray(IngredientRequest[]::new));
         }
         return modelMapper.map(recipe, RecipeResponse.class);
     }
