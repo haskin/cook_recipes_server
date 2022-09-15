@@ -32,32 +32,35 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void saveUsers(List<User> users) {
-        users.forEach(user -> user.setPassword(passwordEncoder.encode(user.getPassword())));
-        userRepository.saveAll(users);
-    }
+    // public void saveUsers(List<User> users) {
+    // users.forEach(user ->
+    // user.setPassword(passwordEncoder.encode(user.getPassword())));
+    // userRepository.saveAll(users);
+    // }
 
-    public Set<User> findUsers() {
-        return userRepository.findAll().stream().collect(Collectors.toSet());
-    }
+    // public Set<User> findUsers() {
+    // return userRepository.findAll().stream().collect(Collectors.toSet());
+    // }
 
     public User findUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found"));
     }
 
-    @Transactional
-    public User saveCreatedRecipe(Long userId, Long recipeId) {
-        User user = findUserById(userId);
-        Recipe recipe = recipeService.findRecipeById(recipeId);
-        user.getRecipesOwned().add(recipe);
-        recipe.setOwner(user);
-        return userRepository.save(user);
-    }
+    // @Transactional
+    // public User saveCreatedRecipe(Long userId, Long recipeId) {
+    // User user = findUserById(userId);
+    // Recipe recipe = recipeService.findRecipeById(recipeId);
+    // user.getRecipesOwned().add(recipe);
+    // recipe.setOwner(user);
+    // return userRepository.save(user);
+    // }
 
     @Transactional
     public User addCreatedRecipeToUser(Long userId, Long recipeId) {
-        User user = findUserById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found"));
+        // User user = findUserById(userId);
         Recipe recipe = recipeService.findRecipeById(recipeId);
         recipe.setOwner(user);
         user.getRecipesOwned().add(recipe);
@@ -67,7 +70,9 @@ public class UserService {
 
     @Transactional
     public User deleteRecipe(Long userId, Long recipeId) {
-        User user = findUserById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found"));
+        // User user = findUserById(userId);
         Recipe recipe = recipeService.findRecipeById(recipeId);
         if (!user.getId().equals(recipe.getOwner().getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User must match Recipe owner for deletion ");

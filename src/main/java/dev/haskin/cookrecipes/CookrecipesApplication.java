@@ -61,7 +61,8 @@ public class CookrecipesApplication {
 		List<User> users = List.of(
 				new User("adrian", "adrian"),
 				new User("userone", "userone"));
-		userService.saveUsers(users);
+		// userService.saveUsers(users);
+		users.forEach(user -> userService.saveUser(user));
 	}
 
 	@Transactional

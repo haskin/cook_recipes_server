@@ -51,10 +51,10 @@ public class UserController {
                 .collect(Collectors.toSet());
     }
 
-    @GetMapping("/users")
-    public Set<User> findUsers() {
-        return userService.findUsers();
-    }
+    // @GetMapping("/users")
+    // public Set<User> findUsers() {
+    // return userService.findUsers();
+    // }
 
     @PutMapping("/user/recipe/{recipeId}")
     public UserResponse saveRecipe(@PathVariable Long recipeId, Authentication authentication) {
@@ -70,12 +70,14 @@ public class UserController {
     }
 
     // @DeleteMapping("user/recipe")
-    // public UserResponse deleteRecipe(@Valid @RequestBody RecipeRequest recipeRequest, Authentication authentication) {
-    //     UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-    //     if (recipeRequest.getId() == null)
-    //         throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-    //                 "Recipe data must contain id for delete operation");
-    //     return modelMapper.map(userService.deleteRecipe(userPrincipal.getId(), recipeRequest.getId()),
-    //             UserResponse.class);
+    // public UserResponse deleteRecipe(@Valid @RequestBody RecipeRequest
+    // recipeRequest, Authentication authentication) {
+    // UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    // if (recipeRequest.getId() == null)
+    // throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+    // "Recipe data must contain id for delete operation");
+    // return modelMapper.map(userService.deleteRecipe(userPrincipal.getId(),
+    // recipeRequest.getId()),
+    // UserResponse.class);
     // }
 }
