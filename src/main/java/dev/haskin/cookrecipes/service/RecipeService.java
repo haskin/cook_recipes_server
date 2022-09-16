@@ -49,9 +49,9 @@ public class RecipeService {
         return recipeRepository.save(recipe);
     }
 
-    public void saveRecipes(List<Recipe> recipes) {
-        recipeRepository.saveAll(recipes);
-    }
+    // public void saveRecipes(List<Recipe> recipes) {
+    // recipeRepository.saveAll(recipes);
+    // }
 
     public Recipe findRecipeById(Long id) {
         return recipeRepository.findById(id)
@@ -73,7 +73,9 @@ public class RecipeService {
     }
 
     public void updateRecipeIngredient(Long recipeId, Long ingredientId) {
-        Recipe recipe = findRecipeById(recipeId);
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "recipe id was not found"));
+        // Recipe recipe = findRecipeById(recipeId);
         Ingredient ingredient = ingredientService.findIngredientById(ingredientId);
         recipe.getIngredients().add(ingredient);
         recipeRepository.save(recipe);
